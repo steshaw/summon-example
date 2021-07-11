@@ -74,12 +74,13 @@ jobs:
       with:
         ghc-version: ${{ matrix.ghc }}
         stack-version: ${{ matrix.stack }}
-        enable-stack: true
 
     - uses: actions/cache@v2.1.6
-      name: Cache ~/.stack
+      name: Cache Stack build artifacts
       with:
-        path: ~/.stack
+        path: |
+          ${{ steps.setup-haskell-stack.outputs.stack-root }}
+          .stack-work
         key: ${{ runner.os }}-${{ matrix.ghc }}-stack
 
     - name: Install dependencies
