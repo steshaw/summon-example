@@ -81,14 +81,10 @@ jobs:
         path: |
           ${{ steps.setup-haskell-stack.outputs.stack-root }}
           .stack-work
-        key: ${{ runner.os }}-${{ matrix.ghc }}-stack
+        key: ${{ runner.os }}-${{ matrix.ghc }}-stack-${{ hashFiles('stack.lock') }}
 
     - name: Install dependencies
       run: |
-        pwd
-        stack --version
-        ghc --version
-        cabal --version
         stack --system-ghc build --test --bench --no-run-tests --no-run-benchmarks --only-dependencies
 
     - name: Test
