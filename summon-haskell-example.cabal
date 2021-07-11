@@ -14,15 +14,20 @@ category:            Application
 build-type:          Simple
 extra-doc-files:     README.md
                      CHANGELOG.md
-tested-with:         GHC == 8.8.3
+tested-with:         GHC == 8.10.4
 
 source-repository head
   type:                git
   location:            https://github.com/steshaw/summon-haskell-example.git
 
 common common-options
-  build-depends:       base ^>= 4.13.0.0
-  
+  build-depends:       base ^>= 4.14.1.0
+  build-depends:       lens > 4 && < 5
+  build-depends:       wreq ^>= 0.5
+  build-depends:       generics-sop ^>= 0.5
+  build-depends:       generic-lens ^>= 2.1
+  build-depends:       yesod ^>= 1.6
+
   ghc-options:         -Wall
                        -Wcompat
                        -Widentities
