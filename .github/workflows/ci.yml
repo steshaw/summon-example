@@ -83,6 +83,7 @@ jobs:
 
     - name: Install dependencies
       run: |
+        pwd
         stack --version
         ghc --version
         cabal --version
