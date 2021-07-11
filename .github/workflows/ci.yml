@@ -87,7 +87,6 @@ jobs:
         stack --version
         ghc --version
         cabal --version
-        ls -alF stack.yaml stack.yaml.lock
         stack --system-ghc build --test --bench --no-run-tests --no-run-benchmarks --only-dependencies
 
     - name: Test
