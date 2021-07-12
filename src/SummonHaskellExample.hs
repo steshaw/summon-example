@@ -4,4 +4,4 @@ module SummonHaskellExample (
 
 someFunc :: IO ()
 someFunc = do
-  putTextLn "Hello from someFunc"
+  putTextLn "Hello world!"
