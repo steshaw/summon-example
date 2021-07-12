@@ -91,7 +91,7 @@ jobs:
       name: Cache Stack build artifacts
       with:
         path: |
-          ${{ steps.setup-haskell-stack.outputs.stack-root }}
+          ~/.stack
           .stack-work
         key:
           ${{ runner.os }}-${{ matrix.ghc }}-stack-${{ hashFiles('stack.lock') }}
