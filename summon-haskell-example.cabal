@@ -30,6 +30,7 @@ common common-options
   build-depends: relude ^>= 0.7
   build-depends: wreq ^>= 0.5
   build-depends: yesod ^>= 1.6
+  build-depends: co-log-core ^>= 0.2
 
   mixins: base hiding (Prelude)
   mixins: relude (Relude as Prelude)
