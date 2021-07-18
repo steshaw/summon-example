@@ -32,8 +32,8 @@ common common-options
   build-depends: yesod ^>= 1.6
   build-depends: co-log-core ^>= 0.2
 
-  mixins: base hiding (Prelude)
-  mixins: relude (Relude as Prelude)
+--  mixins: base hiding (Prelude)
+--  mixins: relude (Relude as Prelude)
 
   ghc-options:
     -Wall
@@ -55,6 +55,7 @@ common common-options
   default-language:    Haskell2010
 
   default-extensions:  OverloadedStrings
+  default-extensions:  NoImplicitPrelude
 
 library
   import:              common-options
