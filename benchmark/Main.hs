@@ -1,5 +1,7 @@
 module Main (main) where
 
+import Relude
+
 import Gauge.Main
 
 main :: IO ()
