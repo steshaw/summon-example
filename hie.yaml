@@ -1,13 +1,13 @@
 cradle:
   stack:
     - path: "./src"
-      component: "lib:summon-haskell-example"
+      component: "lib:summon-example"
 
     - path: "./app/Main.hs"
-      component: "summon-haskell-example:exe:summon-haskell-example"
+      component: "summon-example:exe:summon-example"
 
     - path: "./test"
-      component: "summon-haskell-example:test:summon-haskell-example-test"
+      component: "summon-example:test:summon-example-test"
 
     - path: "./benchmark/Main.hs"
-      component: "summon-haskell-example:bench:summon-haskell-example-benchmark"
+      component: "summon-example:bench:summon-example-benchmark"
