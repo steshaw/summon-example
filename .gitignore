@@ -24,6 +24,9 @@
 .stack-work/
 .virtualenv
 .vscode/
+/cabal.project.local
+/dist
+/dist-*
 /result
 /result-*
 TAGS
@@ -33,8 +36,5 @@ TAGS
 [._]sw[a-p]
 cabal-dev
 cabal.config
-cabal.project.local
 cabal.sandbox.config
-dist
-dist-*
 tags
