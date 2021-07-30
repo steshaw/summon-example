@@ -25,6 +25,7 @@
 .virtualenv
 .vscode/
 /cabal.project.local
+/cabal.project.local~[0-9]*
 /dist
 /dist-*
 /result
