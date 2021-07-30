@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+result-3/bin/summon-example | diff data/expected.out -

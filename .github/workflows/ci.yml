@@ -5,8 +5,55 @@ on:
   push:
 
 jobs:
+  nix:
+    name: Nix ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04]
+
+    steps:
+
+    - uses: actions/checkout@v2.3.4
+
+    - uses: actions/cache@v2.1.6
+      name: Cache Nix Store
+      with:
+        path: |
+          /nix/store/
+        key:
+          nix-store-${{ hashFiles('**/*.nix') }}
+        restore-keys: |
+          nix-store-
+
+    - uses: cachix/install-nix-action@v13
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+
+    - name: Modify PATH
+      run: |
+        echo GITHUB_PATH before
+        cat $GITHUB_PATH | sed 's/^/  /'
+        echo -----------------------
+        echo $PWD/scripts >>$GITHUB_PATH
+        echo GITHUB_PATH after
+        cat $GITHUB_PATH | sed 's/^/  /'
+        echo -----------------------
+
+    - name: Build
+      run: |
+        project-nix-build
+
+    - name: Test
+      run: |
+        project-nix-test
+
+    - name: Smoke Test
+      run: |
+        project-nix-smoke-test
+
   cabal:
-    name: ${{ matrix.os }} / cabal ${{ matrix.cabal }} / ghc ${{ matrix.ghc }}
+    name: Cabal ${{ matrix.os }} cabal-${{ matrix.cabal }} ghc-${{ matrix.ghc }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -17,7 +64,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2.3.4
-#      if: github.event.action == 'opened' || github.event.action == 'synchronize' || github.event.ref == 'refs/heads/master'
 
     - uses: haskell/actions/setup@v1
       id: setup-haskell-cabal
@@ -62,7 +108,7 @@ jobs:
         cabal test all
 
   stack:
-    name: ${{ matrix.os }} / stack ${{ matrix.stack }} / ghc ${{ matrix.ghc }}
+    name: Stack ${{ matrix.os }} / stack-${{ matrix.stack }} ghc-${{ matrix.ghc }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -73,7 +119,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2.3.4
-#      if: github.event.action == 'opened' || github.event.action == 'synchronize' || github.event.ref == 'refs/heads/master'
 
     - uses: haskell/actions/setup@v1
       name: Setup Haskell Stack

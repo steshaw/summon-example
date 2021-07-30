@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+nix-build --attr summon-example.components.library --attr summon-example.components.tests --attr summon-example.components.exes --attr summon-example.components.benchmarks
