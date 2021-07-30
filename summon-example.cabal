@@ -24,13 +24,8 @@ source-repository head
 common common-options
   build-depends: base ^>= 4.14.1.0
 
-  build-depends: generic-lens ^>= 2.0
   build-depends: generics-sop ^>= 0.5
-  build-depends: lens > 4 && < 5
   build-depends: relude ^>= 0.7
-  build-depends: wreq ^>= 0.5
-  build-depends: yesod ^>= 1.6
-  build-depends: co-log-core ^>= 0.2
 
 --  mixins: base hiding (Prelude)
 --  mixins: relude (Relude as Prelude)
