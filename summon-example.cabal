@@ -24,7 +24,7 @@ source-repository head
 common common-options
   build-depends: base ^>= 4.14.1.0
 
-  build-depends: generic-lens ^>= 2.1
+  build-depends: generic-lens ^>= 2.0
   build-depends: generics-sop ^>= 0.5
   build-depends: lens > 4 && < 5
   build-depends: relude ^>= 0.7
