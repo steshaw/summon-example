@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+files=(
+  /nix/store/wdmjn1il1rs55l6lrg0h8m6fmm9dl84c-diagnostics-sandbox.lock
+  /nix/store/1clsvmxp119fkbs3zf22jqcv09wd0i44-diagnostics-sandbox.lock
+)
+
+for file in "${files[@]}"; do
+  echo "${file}"
+  ls -alFh "${file}" || true
+  chmod +w "${file}" || true
+  sudo chmod +w "${file}" || true
+done
+
+# Try to make everything in the store world-readable (plus
+# writable+executable for good measure).
+sudo chmod -R 777 /nix/store || false

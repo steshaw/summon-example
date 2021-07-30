@@ -28,6 +28,7 @@ jobs:
       with:
         path: |
           /nix/store/
+          !/nix/store/*.lock
         key:
           nix-store-${{ hashFiles('**/*.nix') }}
         restore-keys: |
