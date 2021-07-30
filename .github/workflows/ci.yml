@@ -78,6 +78,13 @@ jobs:
       run: |
         project-nix-smoke-test
 
+    - name: Test Nix shell
+      run: |
+        nix-shell --run 'echo OK'
+        nix-shell --run 'cabal --version'
+        nix-shell --run 'hlint --version'
+        nix-shell --run 'hls --version'
+
   cabal:
     name: Cabal ${{ matrix.os }} cabal-${{ matrix.cabal }} ghc-${{ matrix.ghc }}
     runs-on: ${{ matrix.os }}
