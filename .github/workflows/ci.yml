@@ -14,6 +14,13 @@ jobs:
 
     steps:
 
+    - name: info
+      run: |
+        set -x
+        nproc
+        nproc --all
+        cat /sys/fs/cgroup/cpuset/cpuset.cpus
+
     - uses: actions/checkout@v2.3.4
 
     - uses: actions/cache@v2.1.6
@@ -36,7 +43,7 @@ jobs:
         echo nix.conf
         cat /etc/nix/nix.conf
         tree ~/.config/nix
-        cat ~/.config/nix/nix.conf
+        cat ~/.config/nix/nix.conf || true
 
     - name: Modify PATH
       run: |
