@@ -42,10 +42,17 @@ jobs:
 
     - name: Nix info
       run: |
+        set -x
+        nix-shell -p nix-info --run 'nix-info -m'
         nix-build --version
         nix-instantiate --json --eval --expr 'with import <nixpkgs> {}; lib.trivial.revisionWithDefault null' | jq --raw-output
-        echo nix.conf
+        set +x
+        echo ---------------------------------------------------------------
+        echo Contents of nix.conf
+        echo ---------------------------------------------------------------
         cat /etc/nix/nix.conf
+        echo ---------------------------------------------------------------
+        set -x
         tree ~/.config/nix
         cat ~/.config/nix/nix.conf || true
 
