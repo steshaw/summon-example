@@ -40,6 +40,7 @@ jobs:
     - name: Nix info
       run: |
         nix-build --version
+        nix-instantiate --json --eval --expr 'with import <nixpkgs> {}; lib.trivial.revisionWithDefault null' | jq --raw-output
         echo nix.conf
         cat /etc/nix/nix.conf
         tree ~/.config/nix
