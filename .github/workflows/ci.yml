@@ -55,24 +55,6 @@ jobs:
           substituters = https://hydra.iohk.io https://iohk.cachix.org https://cache.nixos.org/
           trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
 
-    - name: Nix info
-      env:
-        NIX_PATH: nixpkgs=https://github.com/NixOS/nixpkgs/archive/3c6f3f84af60a8ed5b8a79cf3026b7630fcdefb8.tar.gz
-      run: |
-        set -x
-        nix-shell -p nix-info --run 'nix-info -m'
-        nix-build --version
-        nix-instantiate --json --eval --expr 'with import <nixpkgs> {}; lib.trivial.revisionWithDefault null' | jq --raw-output
-        set +x
-        echo ---------------------------------------------------------------
-        echo Contents of nix.conf
-        echo ---------------------------------------------------------------
-        cat /etc/nix/nix.conf
-        echo ---------------------------------------------------------------
-        set -x
-        tree ~/.config/nix
-        cat ~/.config/nix/nix.conf || true
-
     - name: Modify PATH
       run: |
         echo GITHUB_PATH before
@@ -82,6 +64,11 @@ jobs:
         echo GITHUB_PATH after
         cat $GITHUB_PATH | sed 's/^/  /'
         echo -----------------------
+
+    - name: Nix info
+      env:
+        NIX_PATH: nixpkgs=https://github.com/NixOS/nixpkgs/archive/3c6f3f84af60a8ed5b8a79cf3026b7630fcdefb8.tar.gz
+      run: ci-nix-info
 
     - name: Build
       run: |

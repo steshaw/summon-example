@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+indent() {
+  sed -e 's/^/  /'
+}
+
+hr() {
+  echo ---------------------------------------------------------------------
+}
+
+echo 'Nix version:'
+nix-env --version | indent
+
+echo
+echo 'nixpkgs revision:'
+nix-instantiate --json --eval --expr 'with import <nixpkgs> {}; lib.trivial.revisionWithDefault null' |
+  jq --raw-output |
+  indent
+
+echo
+echo 'nix-info -m'
+nix-shell -p nix-info --run 'nix-info -m' | indent
+
+#echo
+echo Contents of nix.conf
+hr
+cat /etc/nix/nix.conf || true
+hr
+
+echo
+echo tree ~/.config/nix
+hr
+tree ~/.config/nix
+hr
+
+echo
+echo Contents of ~/.config/nix/nix.conf
+hr
+cat ~/.config/nix/nix.conf || true
+hr
