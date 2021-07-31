@@ -14,13 +14,15 @@ jobs:
 
     steps:
 
-    - name: info
+    - name: Info
       run: |
         set -x
+        echo GITHUB_SHA=$GITHUB_SHA
+        echo GITHUB_REF=$GITHUB_REF
+        env | grep ^GITHUB_
         nproc
         nproc --all
         cat /sys/fs/cgroup/cpuset/cpuset.cpus
-        id -u
 
     - uses: actions/checkout@v2.3.4
 
