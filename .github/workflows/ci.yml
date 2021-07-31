@@ -37,7 +37,9 @@ jobs:
 
     - uses: nixbuild/nix-quick-install-action@v6
       with:
-        nix_version: 2.4pre20210707_02dd6bb #2.4pre20210601_5985b8b
+        # Version 2.4pre20210707_02dd6bb is not an available.
+        nix_version: 2.4pre20210601_5985b8b
+
         nix_conf: |
           max-jobs = auto
           trusted-users = root runner
