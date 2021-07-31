@@ -19,7 +19,7 @@ jobs:
         set -x
         echo GITHUB_SHA=$GITHUB_SHA
         echo GITHUB_REF=$GITHUB_REF
-        env | grep ^GITHUB_
+        env | sort | grep ^GITHUB_
         nproc
         nproc --all
         cat /sys/fs/cgroup/cpuset/cpuset.cpus
