@@ -32,6 +32,7 @@ jobs:
         key:
           nix-store-${{ hashFiles('**/*.nix') }}
         restore-keys: |
+          nix-store-${{ hashFiles('**/*.nix') }}
           nix-store-
 
     - uses: nixbuild/nix-quick-install-action@v6
@@ -142,6 +143,7 @@ jobs:
         key:
           ${{ runner.os }}-${{ matrix.ghc }}-cabal-${{ hashFiles('cabal.project.freeze') }}
         restore-keys: |
+          ${{ runner.os }}-${{ matrix.ghc }}-cabal-${{ hashFiles('cabal.project.freeze') }}
           ${{ runner.os }}-${{ matrix.ghc }}-cabal-
 
     - name: Install dependencies
@@ -188,6 +190,7 @@ jobs:
         key:
           ${{ runner.os }}-${{ matrix.ghc }}-stack-${{ hashFiles('stack.lock') }}
         restore-keys: |
+          ${{ runner.os }}-${{ matrix.ghc }}-stack-${{ hashFiles('stack.lock') }}
           ${{ runner.os }}-${{ matrix.ghc }}-stack-
 
     - name: Install and build dependencies
