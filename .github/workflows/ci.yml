@@ -81,10 +81,7 @@ jobs:
 
     - name: Test Nix shell
       run: |
-        nix-shell --run 'echo OK'
-        nix-shell --run 'cabal --version'
-        nix-shell --run 'hlint --version'
-        nix-shell --run 'hls --version'
+        ci-test-nix-shell
 
   cabal:
     name: Cabal ${{ matrix.os }} cabal-${{ matrix.cabal }} ghc-${{ matrix.ghc }}

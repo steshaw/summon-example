@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+indent() {
+  sed -e 's/^/  /'
+}
+
+echo 'Cabal'
+{
+  echo "path: $(type -p cabal)"
+  echo "version:"
+  cabal --version | indent
+} | indent
+
+echo
+echo 'Hlint'
+{
+  echo "path: $(type -p hlint)"
+  echo "version: $(hlint --version)"
+} | indent
+
+echo
+echo 'Haskell Language Server (HLS)'
+{
+  echo "path: $(type -p haskell-language-server)"
+  echo "version: $(haskell-language-server --version)"
+} | indent

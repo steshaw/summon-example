@@ -4,4 +4,8 @@
     hlint = "latest";
     haskell-language-server = "latest";
   };
+
+  shellHook = ''
+    export PATH=$PWD/scripts:$PATH
+  '';
 }
