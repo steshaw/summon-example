@@ -26,7 +26,7 @@ nix-shell -p nix-info --run 'nix-info -m' | indent
 #echo
 echo Contents of nix.conf
 hr
-cat /etc/nix/nix.conf || true
+cat /etc/nix/nix.conf 2>&1 || true
 hr
 
 echo
@@ -38,5 +38,5 @@ hr
 echo
 echo Contents of ~/.config/nix/nix.conf
 hr
-cat ~/.config/nix/nix.conf || true
+cat ~/.config/nix/nix.conf 2>&1 || true
 hr
