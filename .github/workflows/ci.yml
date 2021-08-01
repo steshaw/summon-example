@@ -23,11 +23,11 @@ jobs:
       run: ci-info
 
     - name: Fix /nix/store permissions
-      if: true
+      if: false
       run: ci-fix-nix-store-permissions
 
     - uses: actions/cache@v2.1.6
-      if: true
+      if: false
       name: Cache Nix Store
       with:
         path: |
@@ -103,7 +103,7 @@ jobs:
         ci-test-nix-shell
 
     - name: Fix /nix/store permissions
-      if: true
+      if: false
       run: ci-fix-nix-store-permissions
 
   cabal:
