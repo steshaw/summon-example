@@ -15,27 +15,20 @@ jobs:
     steps:
 
     - name: Info
-      run: |
-        set -x
-        echo GITHUB_SHA=$GITHUB_SHA
-        echo GITHUB_REF=$GITHUB_REF
-        env | sort | grep ^GITHUB_
-        nproc
-        nproc --all
-        cat /sys/fs/cgroup/cpuset/cpuset.cpus
+      run: ci-info
 
     - uses: actions/checkout@v2.3.4
 
     - uses: actions/cache@v2.1.6
-      if: false
+      if: true
       name: Cache Nix Store
       with:
         path: |
-          /nix/store/
+          ~/nix-store/
         key:
-          nix-store-${{ hashFiles('**/*.nix') }}
+          user-nix-store-${{ hashFiles('**/*.nix') }}
         restore-keys: |
-          nix-store-
+          user-nix-store-
 
     - uses: nixbuild/nix-quick-install-action@v6
       with:
@@ -46,7 +39,7 @@ jobs:
           max-jobs = auto
           trusted-users = root runner
           experimental-features = nix-command flakes
-          substituters = https://hydra.iohk.io https://iohk.cachix.org https://cache.nixos.org/
+          substituters = ~/nix-store https://hydra.iohk.io https://iohk.cachix.org https://cache.nixos.org/
           trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
 
     - uses: cachix/install-nix-action@v13
@@ -73,6 +66,7 @@ jobs:
         echo -----------------------
 
     - name: Nix info
+      if: false
       env:
         NIX_PATH: nixpkgs=https://github.com/NixOS/nixpkgs/archive/3c6f3f84af60a8ed5b8a79cf3026b7630fcdefb8.tar.gz
       run: ci-nix-info
@@ -90,16 +84,14 @@ jobs:
         project-nix-smoke-test
 
     - name: Test Nix shell
+      if: false
       env:
         NIX_PATH: nixpkgs=https://github.com/NixOS/nixpkgs/archive/3c6f3f84af60a8ed5b8a79cf3026b7630fcdefb8.tar.gz
       run: |
         ci-test-nix-shell
 
-    # Work around caching files that are not readable.
-    # https://github.com/actions/cache/issues/133
-    - name: Make /nix/store readable by current user
-      if: false
-      run: sudo chown -R $(id -u) /nix/store/
+    - name: Copy /nix/store to ~/nix-store
+      run: ci-copy-nix-store
 
   cabal:
     name: Cabal ${{ matrix.os }} cabal-${{ matrix.cabal }} ghc-${{ matrix.ghc }}

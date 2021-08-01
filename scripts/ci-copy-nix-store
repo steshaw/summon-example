@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Work around caching files that are not readable.
+# https://github.com/actions/cache/issues/133
+#
+# Not currently needed  because we are using the single-user Nix
+# installation.
+#
+#sudo chown -R "$(id -u)" /nix/store/
+
+rsync -ahHAXW --no-compress /nix/store/ ~/nix-store

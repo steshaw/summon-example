@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+indent() {
+  sed -e 's/^/  /'
+}
+
+echo nproc
+nproc
+
+echo
+echo nproc --all
+nproc --all
+
+echo
+echo cat /sys/fs/cgroup/cpuset/cpuset.cpus
+cat /sys/fs/cgroup/cpuset/cpuset.cpus
+
+echo
+echo "GITHUB_SHA=\"${GITHUB_SHA:-}\""
+echo "GITHUB_REF=\"${GITHUB_REF:-}\""
+
+echo
+echo "All GITHUB environment variables {"
+env | grep ^GITHUB_ | sort | indent
+echo "}"
