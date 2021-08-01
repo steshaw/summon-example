@@ -22,21 +22,6 @@ jobs:
     - name: Info
       run: ci-info
 
-    - name: Fix /nix/store permissions
-      if: false
-      run: ci-fix-nix-store-permissions
-
-    - uses: actions/cache@v2.1.6
-      if: false
-      name: Cache Nix Store
-      with:
-        path: |
-          /nix/store
-        key:
-          nix-store-${{ hashFiles('**/*.nix') }}-2
-        restore-keys: |
-          nix-store-
-
     - name: Nix Quick Install
       uses: nixbuild/nix-quick-install-action@v6
       if: true
@@ -59,23 +44,11 @@ jobs:
           substituters = https://hydra.iohk.io https://iohk.cachix.org https://cache.nixos.org/
           trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
 
-    - name: Switch Nix store to ~/nix
-      if: false
-      run: |
-        nix shell --store ~/nix nixpkgs#bashInteractive --command bash -c 'echo ok'
-        echo store = /home/runner/nix >>~/.config/nix/nix.conf
-
     - uses: cachix/cachix-action@v10
       if: true
       with:
         name: steshaw
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-
-    - name: Use Cachix steshaw
-      if: false
-      run: |
-        NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs/archive/3c6f3f84af60a8ed5b8a79cf3026b7630fcdefb8.tar.gz nix-env -iA nixpkgs.cachix
-        cachix use steshaw
 
     - name: Nix info
       if: false
@@ -101,10 +74,6 @@ jobs:
         NIX_PATH: nixpkgs=https://github.com/NixOS/nixpkgs/archive/3c6f3f84af60a8ed5b8a79cf3026b7630fcdefb8.tar.gz
       run: |
         ci-test-nix-shell
-
-    - name: Fix /nix/store permissions
-      if: false
-      run: ci-fix-nix-store-permissions
 
   cabal:
     name: Cabal ${{ matrix.os }} cabal-${{ matrix.cabal }} ghc-${{ matrix.ghc }}
