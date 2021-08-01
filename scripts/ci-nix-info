@@ -40,3 +40,7 @@ echo Contents of ~/.config/nix/nix.conf
 hr
 cat ~/.config/nix/nix.conf 2>&1 || true
 hr
+
+echo
+echo '~/nix-store'
+tree -L 1 ~/nix-store

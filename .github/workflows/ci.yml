@@ -59,7 +59,7 @@ jobs:
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
     - name: Nix info
-      if: false
+      if: true
       env:
         NIX_PATH: nixpkgs=https://github.com/NixOS/nixpkgs/archive/3c6f3f84af60a8ed5b8a79cf3026b7630fcdefb8.tar.gz
       run: ci-nix-info
