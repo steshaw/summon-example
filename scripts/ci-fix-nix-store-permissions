@@ -8,7 +8,8 @@ set -euo pipefail
 # Not currently needed  because we are using the single-user Nix
 # installation.
 #
-#sudo chown -R "$(id -u)" /nix/store/
+sudo mkdir -p /nix/store
+sudo chown -R "$(id -u)" /nix/store/
 
-mkdir -p ~/nix
-rsync -ahHAXW --no-compress /nix/store/ ~/nix/store
+#mkdir -p ~/nix
+#rsync -ahHAXW --no-compress /nix/store/ ~/nix/store
