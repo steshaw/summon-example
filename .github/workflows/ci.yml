@@ -34,7 +34,7 @@ jobs:
           user-nix-store-
 
     - uses: nixbuild/nix-quick-install-action@v6
-      if: false
+      if: true
       with:
         # Version 2.4pre20210707_02dd6bb is not an available.
         nix_version: 2.4pre20210601_5985b8b
@@ -45,16 +45,16 @@ jobs:
           experimental-features = nix-command flakes
           substituters = ~/nix https://hydra.iohk.io https://iohk.cachix.org https://cache.nixos.org/
           trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
-          store = /home/runner/nix
 
     - uses: cachix/install-nix-action@v13
-      if: true
+      if: false
       with:
         nix_path: nixpkgs=channel:nixos-unstable
         extra_nix_config: |
           substituters = https://hydra.iohk.io https://iohk.cachix.org https://cache.nixos.org/
           trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
-          store = /home/runner/nix
+
+    - run: echo store = /home/runner/nix >>~/.config/nix/nix.conf
 
     - uses: cachix/cachix-action@v10
       with:
