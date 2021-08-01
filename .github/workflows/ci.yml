@@ -33,11 +33,13 @@ jobs:
         restore-keys: |
           user-nix-store-
 
-    - uses: nixbuild/nix-quick-install-action@v6
+    - name: Nix Quick Install
+      uses: nixbuild/nix-quick-install-action@v6
       if: true
       with:
         # Version 2.4pre20210707_02dd6bb is not an available.
-        nix_version: 2.4pre20210601_5985b8b
+        # Unstable version available: 2.4pre20210601_5985b8b
+        nix_version: 2.3.15
 
         nix_conf: |
           max-jobs = auto
