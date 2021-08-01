@@ -27,9 +27,9 @@ jobs:
       name: Cache Nix Store
       with:
         path: |
-          ~/nix-store/
+          ~/nix/store
         key:
-          user-nix-store-${{ hashFiles('**/*.nix') }}
+          user-nix-store-${{ hashFiles('**/*.nix') }}-2
         restore-keys: |
           user-nix-store-
 
@@ -42,7 +42,7 @@ jobs:
           max-jobs = auto
           trusted-users = root runner
           experimental-features = nix-command flakes
-          substituters = ~/nix-store https://hydra.iohk.io https://iohk.cachix.org https://cache.nixos.org/
+          substituters = ~/nix https://hydra.iohk.io https://iohk.cachix.org https://cache.nixos.org/
           trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
 
     - uses: cachix/install-nix-action@v13
@@ -83,7 +83,7 @@ jobs:
       run: |
         ci-test-nix-shell
 
-    - name: Copy /nix/store to ~/nix-store
+    - name: Copy /nix/store to ~/nix
       run: ci-copy-nix-store
 
   cabal:

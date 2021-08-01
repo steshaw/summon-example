@@ -10,4 +10,5 @@ set -euo pipefail
 #
 #sudo chown -R "$(id -u)" /nix/store/
 
-rsync -ahHAXW --no-compress /nix/store/ ~/nix-store
+mkdir -p ~/nix
+rsync -ahHAXW --no-compress /nix/store/ ~/nix/store
