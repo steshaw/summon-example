@@ -6,6 +6,13 @@ indent() {
   sed -e 's/^/  /'
 }
 
+echo PWD
+pwd
+
+echo
+echo "HOME=\"$HOME\""
+
+echo
 echo nproc
 nproc
 
